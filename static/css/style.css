@@ -2,9 +2,22 @@ input:focus {
     outline:none !important;
 }
 
+.navbar-toggle .button-label {
+	display: inline-block;
+	float: left;
+	font-weight: bold;
+	line-height: 12px;
+}
+.button-label {
+	display: inline-block;
+	float: left;
+	padding-left: 25px
+}
+
 .navbar-default {
   background: #fff;
   border: 0;
+  margin: 0;
   font-family: sans-serif;
 }
 
@@ -17,8 +30,6 @@ input:focus {
 body, html {
     height: 100%;
     margin: 0;
-    
-    
 }
 
 h1, h2, h3, h4, h5, h6 {

@@ -1,10 +1,15 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
 #from data import Articles
 from flask_mysqldb import MySQL
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators
+from flask_ckeditor import CKEditor, CKEditorField
+from flask_wtf import FlaskForm
+from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SubmitField
 from passlib.hash import sha256_crypt
 from functools import wraps
 import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
 
 # Config MySQL
@@ -13,8 +18,15 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '008877'
 app.config['MYSQL_DB'] = 'myflaskapp'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+app.config['CKEDITOR_SERVE_LOCAL'] = True
+app.config['CKEDITOR_HEIGHT'] = 400
+
 # init MYSQL
 mysql = MySQL(app)
+
+# init CKEditor
+ckeditor = CKEditor(app)
 
 #Articles = Articles()
 
@@ -182,9 +194,9 @@ def dashboard():
     cur.close()
 
 # Article Form Class
-class ArticleForm(Form):
+class ArticleForm(FlaskForm):
     title = StringField('Title', [validators.Length(min=1, max=200)])
-    body = TextAreaField('Body', [validators.Length(min=30)])
+    body = CKEditorField('Body', [validators.Length(min=30)])
 
 # Add Article
 @app.route('/add_article', methods=['GET', 'POST'])
@@ -279,6 +291,11 @@ def delete_article(id):
 def people():
     return render_template('people.html')
 
+# Sensor Location
+@app.route('/sensor_location')
+def sensor_location():
+    return render_template('sensor_location.html')
+
 if __name__ == '__main__':
     app.secret_key='secret123'
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
