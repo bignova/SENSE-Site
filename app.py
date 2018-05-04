@@ -15,7 +15,7 @@ app = Flask(__name__)
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'tzy123'
+app.config['MYSQL_PASSWORD'] = '008877'
 app.config['MYSQL_DB'] = 'myflaskapp'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
@@ -54,10 +54,10 @@ def articles():
     articles = cur.fetchall()
 
     if result > 0:
-        return render_template('articles.html', articles=articles)
+        return render_template('news.html', articles=articles)
     else:
         msg = 'No Articles Found'
-        return render_template('articles.html', msg=msg)
+        return render_template('news.html', msg=msg)
     # Close connection
     cur.close()
 

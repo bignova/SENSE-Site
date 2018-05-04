@@ -1,6 +1,5 @@
+
 <!DOCTYPE html>
-{% extends 'layout.html' %}
-{% block body %}
 <html>
   <head>
     <meta charset="utf-8">
@@ -11,7 +10,7 @@
  Poppins:300,400,500,600,700%7CRoboto%7CJosefin+Sans:100,300,400,500" rel = "stylesheet" type = "text/css">
     <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel = "stylesheet" type = "text/css" href = "static/css/style.css">
-    <link rel = "stylesheet" type = "text/css"  href = "static/css/News.css">
+    <link rel = "stylesheet" type = "text/css"  href = "static/css/news.css">
     <link rel = "stylesheet" type = "text/css"  href = "static/css/newsIndex.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -21,6 +20,31 @@
 
 
     <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">SENSE</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li><a href="#info1">About</a></li>
+                        <li><a href="./people.html">People</a></li>
+                        <li><a href="./news.html">News</a></li>
+                        <li><a href="#info2">Sensor Locations</a></li>
+                        <li><a href="#info3">Get Involved</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#login">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
         <!--Beginning-->
         <div class="container-fluid" id="header">
@@ -88,36 +112,15 @@
                 <!-- BEGIN Accordion -->
                 <div class="accordion">
                   <ul>
-                    <li>
-                      <div> <a href="./newSensorLocations.html">
-                        <h2>New Sensor Locations</h2>
-                        </a> </div>
-                    </li>
-                    <li>
-                      <div> <a href="#">
-                        <h2>Revision 1 Update</h2>
-                        </a> </div>
-                    </li>
-                    <li>
-                      <div> <a href="#">
-                        <h2>Continued Testing</h2>
-                        </a> </div>
-                    </li>
-                    <li>
-                      <div> <a href="#">
-                        <h2>Moon Festival Rooftop Party</h2>
-                        </a> </div>
-                    </li>
-                    <li>
-                      <div> <a href="#">
-                        <h2>Sensors</h2>
-                        </a> </div>
-                    </li>
-                    <li>
-                      <div> <a href="#">
-                        <h2>Urban CO2 Dome</h2>
-                        </a> </div>
-                    </li>
+                    {% for article in articles|reverse() %}
+                      {% if loop.revindex0 < 5 %}
+                        <li>  
+                          <div> <a href="article/{{article.id}}">
+                            <h2>{{article.title}}</h2>
+                          </a> </div>
+                        </li>
+                      {% endif %}
+                    {% endfor %}
                   </ul>
                 </div>
 
@@ -149,6 +152,13 @@
               <!-- end post -->
               </div>
 
+              {% for article in articles|reverse() %}
+                <div class="post">
+                  <h2><a href="article/{{article.id}}">{{article.title}}</a></h2>
+                  <p class="date">Posted on {{article.create_date}} by {{article.author}}</p>
+                  <!--<p>{{article.body}}</p>-->
+                </div>
+              {% endfor %}
 
             </div>
         </div>
@@ -166,4 +176,3 @@
     </body>
 
 </html>
-{% end body %}
